@@ -1,0 +1,16 @@
+# Secrets
+.env
+
+# Runtime files
+uploads/
+__pycache__/
+*.pyc
+*.pkl
+venv/
+.venv/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
