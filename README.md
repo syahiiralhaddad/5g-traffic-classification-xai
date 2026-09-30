@@ -1,7 +1,5 @@
 # QoSight: 5G Traffic Classification with Stacking Ensemble, XAI & Time Series Analysis
 
-Undergraduate thesis project, Electrical Engineering, Universitas Indonesia.
-
 **QoSight** classifies 5G network traffic into four service classes (**Game, Social, Video, Voice**) from QoS parameters. It uses a stacking ensemble of KNN, SVM, and Random Forest, explains each class in plain language with an LLM (XAI), and presents everything in an interactive web dashboard with time series analysis.
 
 ![QoSight landing page](images/landing_page.png)
