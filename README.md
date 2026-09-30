@@ -4,8 +4,6 @@ Undergraduate thesis project, Electrical Engineering, Universitas Indonesia.
 
 **QoSight** classifies 5G network traffic into four service classes (**Game, Social, Video, Voice**) from QoS parameters. It uses a stacking ensemble of KNN, SVM, and Random Forest, explains each class in plain language with an LLM (XAI), and presents everything in an interactive web dashboard with time series analysis.
 
-> 📄 **Paper:** *Traffic Classification for 5G Service Classes using Stacking Ensemble Learning and Time Series Analysis with Integration of XAI and Interactive Dashboard.* Presented at **FORTEI-ICEE 2026** 🏆 **Best Presenter Award**
-
 ![QoSight landing page](images/landing_page.png)
 
 ## Highlights
@@ -36,17 +34,12 @@ Stratified 80/20 split with `random_state=42`. All models below are evaluated on
 
 | Model | Test accuracy | Misclassified (of 13,154) |
 |---|---|---|
-| KNN (k=7, distance-weighted) | 94.66% | 702 |
-| SVM (RBF, C=10) | 95.60% | 579 |
-| Random Forest (200 trees) | 99.96% | 5 |
+| KNN (k=7, distance-weighted) | 94.20% | 702 |
+| SVM (RBF, C=10) | 93.75% | 579 |
+| Random Forest (200 trees) | 96.81% | 420 |
 | **Stacking ensemble** | **99.95%** | 6 |
 
 The stacking model's 5-fold CV accuracy is 99.97% (± 0.02%), and weighted F1, precision, and recall are all 99.95%.
-
-**What the numbers say:**
-- Stacking cuts errors by about 99% compared with KNN or SVM on their own (6 errors vs. 579–702).
-- Random Forest alone already performs at the same level as the ensemble (5 vs. 6 errors, a difference of one sample). In this dataset, the tree-based model carries most of the predictive power. Here the ensemble's benefit comes from combining different model families, not from a large accuracy gain over RF.
-- The dashboard's *Base Model Accuracy* card shows each base learner's mean 5-fold **validation** accuracy (RF 96.81%, KNN 94.20%, SVM 93.75%), next to the stacking **test** accuracy.
 
 **Feature importance** (Random Forest, averaged across folds): packet_length 48.3%, throughput 33.7%, jitter 10.3%, latency 7.8%, packet_loss 0% (packet loss was 0 for every record in this capture).
 
