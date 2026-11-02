@@ -1,5 +1,7 @@
 # QoSight: 5G Traffic Classification with Stacking Ensemble, XAI & Time Series Analysis
 
+![CI](https://github.com/syahiiralhaddad/5g-traffic-classification-xai/actions/workflows/ci.yml/badge.svg)
+
 **QoSight** classifies 5G network traffic into four service classes (**Game, Social, Video, Voice**) from QoS parameters. It uses a stacking ensemble of KNN, SVM, and Random Forest, explains each class in plain language with an LLM (XAI), and presents everything in an interactive web dashboard with time series analysis.
 
 ![QoSight landing page](images/landing_page.png)
@@ -91,6 +93,28 @@ Open http://localhost:5000, click **Get Started**, choose **Use Sample Dataset**
 
 To use your own data, upload a CSV with at least these columns: `date, time, traffic_type, packet_loss, throughput, latency, jitter, packet_length`.
 
+## Run with Docker
+
+```bash
+docker build -t 5g-traffic-classification-xai .
+
+# with LLM explanations
+docker run -p 5000:5000 -e HF_TOKEN=hf_your_token_here 5g-traffic-classification-xai
+
+# or classification only (no XAI)
+docker run -p 5000:5000 -e RUN_XAI=0 5g-traffic-classification-xai
+```
+
+Then open http://localhost:5000.
+
+## Continuous Integration
+
+Every push to `main` runs a GitHub Actions pipeline (`.github/workflows/ci.yml`) that:
+
+1. Installs the dependencies
+2. Runs the automated tests in `tests/` (health check, dashboard page, upload validation, dataset schema)
+3. Builds the Docker image
+
 ## Project Structure
 
 ```
@@ -99,10 +123,15 @@ To use your own data, upload a CSV with at least these columns: `date, time, tra
 ├── data/
 │   └── 5g_traffic_dataset.csv
 ├── images/                 # screenshots for this README
+├── tests/
+│   └── test_app.py         # automated tests run in CI
+├── .github/workflows/
+│   └── ci.yml              # CI: test + Docker build on every push
+├── Dockerfile
 ├── requirements.txt
 └── .env.example            # HF_TOKEN / RUN_XAI settings
 ```
 
 ## Tech Stack
 
-Python · scikit-learn · pandas · Flask (Server-Sent Events) · HuggingFace Inference (Qwen LLM) · HTML/CSS/JavaScript · Chart.js
+Python · scikit-learn · pandas · Flask (Server-Sent Events) · HuggingFace Inference (Qwen LLM) · HTML/CSS/JavaScript · Chart.js · Docker · GitHub Actions · pytest
